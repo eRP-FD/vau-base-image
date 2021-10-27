@@ -1,0 +1,11 @@
+[Unit]
+Description=AIDE File Integrity Monitoring regular timer
+
+[Timer]
+OnCalendar=*:00,10,20,30,40,50
+RandomizedDelaySec=5m
+FixedRandomDelay=true
+Unit=aide-fim.service
+
+[Install]
+WantedBy=timers.target

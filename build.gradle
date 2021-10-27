@@ -1,0 +1,8 @@
+plugins {
+    id 'pl.allegro.tech.build.axion-release' version '1.10.2'
+}
+
+apply from: 'gradle/release.gradle'
+
+group = 'com.ibm.erp'
+version = null

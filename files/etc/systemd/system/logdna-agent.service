@@ -1,0 +1,18 @@
+[Unit]
+Description=LogDna daemon
+After=network.target
+
+[Service]
+Type=forking
+Restart=no
+TimeoutSec=5min
+Environment="USEJOURNALD=files"
+ExecStart=/etc/init.d/logdna-agent start
+#ExecStop=/etc/init.d/logdna-agent stop
+ExecStop=echo " $MAINPID "
+ExecStop=/bin/kill $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

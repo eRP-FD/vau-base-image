@@ -1,0 +1,1 @@
+-a never,exclude -F exe=/usr/bin/logdna-agent -k exclude_logdna

@@ -1,0 +1,1 @@
+-w /etc/aide/ -p wa -k AIDE-policy

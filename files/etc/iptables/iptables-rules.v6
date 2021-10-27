@@ -1,0 +1,6 @@
+*filter
+:INPUT DENY [0:0]
+:FORWARD DENY [0:0]
+:OUTPUT DENY [0:0]
+COMMIT
+

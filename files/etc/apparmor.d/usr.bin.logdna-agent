@@ -1,0 +1,29 @@
+# Last Modified: Thu Jul  8 11:28:24 2021
+#include <tunables/global>
+
+/usr/bin/logdna-agent {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/ubuntu-konsole>
+  #include <abstractions/wutmp>
+
+  capability dac_read_search,
+
+  /usr/bin/journalctl mrUx,
+  /usr/bin/logdna-agent mr,
+  /var/config/hosts r,
+  /var/config/logdna.conf r,
+  /var/log/** r,
+  owner /etc/lsb-release r,
+  owner /proc/*/environ r,
+  owner /proc/*/sched r,
+  owner /proc/*/stat r,
+  owner /proc/cmdline r,
+  owner /proc/filesystems r,
+  owner /proc/sys/kernel/osrelease r,
+  owner /sys/firmware/efi/efivars/* r,
+  owner /sys/fs/cgroup/memory/memory.limit_in_bytes r,
+  owner /var/log/ r,
+
+}

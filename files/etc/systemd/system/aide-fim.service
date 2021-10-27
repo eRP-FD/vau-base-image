@@ -1,0 +1,6 @@
+[Unit]
+Description=AIDE File Integrity Monitoring Service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/aide --config /etc/aide/aide.conf --check

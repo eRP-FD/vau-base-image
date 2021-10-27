@@ -1,0 +1,36 @@
+# Last Modified: Thu Jul  8 11:28:24 2021
+#include <tunables/global>
+
+/usr/sbin/haproxy {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+  #include <abstractions/consoles>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/ubuntu-browsers.d/plugins-common>
+
+  capability setgid,
+  capability setuid,
+  capability kill,
+
+  /etc/hosts r,
+  /run/haproxy-master.sock* mrix,
+  /sys/kernel/mm/transparent_hugepage/enabled r,
+  /usr/bin/cat mrix,
+  /usr/bin/timeout mrix,
+  /usr/bin/wc mrix,
+  /usr/local/bin/redis-cli mrix,
+  /usr/local/bin/redis-healthcheck.sh mrix,
+  /usr/sbin/haproxy mr,
+  /var/config/haproxy/secrets/ca.crt r,
+  /var/config/haproxy/secrets/redis_password r,
+  /var/config/hosts r,
+  /var/named/* r,
+  owner /etc/haproxy/haproxy.cfg r,
+  owner /etc/sysconfig/haproxy r,
+  owner /proc/sys/vm/overcommit_memory r,
+  owner /run/haproxy* lrw,
+  owner /sys/devices/system/cpu/online r,
+  owner /var/config/haproxy/haproxy r,
+
+}

@@ -1,0 +1,60 @@
+# Last Modified: Sat Jan 20 10:45:05 2018
+#include <tunables/global>
+
+/usr/sbin/chronyd (attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability sys_time,
+  capability net_bind_service,
+  capability setuid,
+  capability setgid,
+  capability sys_nice,
+  capability sys_resource,
+  # for /run/chrony to be created
+  capability chown,
+  # Needed to support HW timestamping
+  capability net_admin,
+
+  /usr/sbin/chronyd mr,
+
+  /etc/chrony/{,**} r,
+  /{,var/}run/chronyd.pid w,
+  /{,var/}run/chrony/{,*} rw,
+  /var/lib/chrony/{,*} r,
+  /var/lib/chrony/* w,
+  /var/log/chrony/{,*} r,
+  /var/log/chrony/* w,
+  /var/config/hosts r,
+
+  # Using the “tempcomp” directive gives chronyd the ability to improve
+  # the stability and accuracy of the clock by compensating the temperature
+  # changes measured by a sensor close to the oscillator.
+  @{sys}/class/hwmon/hwmon[0-9]*/temp[0-9]*_input r,
+
+  # Support all paths suggested in the man page (LP: #1771028). Assume these
+  # are common use cases; others should be set as local include (see below).
+  # Configs using a 'chrony.' prefix like the tempcomp config file example
+  /etc/chrony.* r,
+  # Example gpsd socket is outside /{,var/}run/chrony/
+  /{,var/}run/chrony.tty{,*}.sock rw,
+  # To sign replies to MS-SNTP clients by the smbd daemon
+  /var/lib/samba/ntp_signd/socket rw,
+
+  # rtc
+  /etc/adjtime r,
+  /dev/rtc{,[0-9]*} rw,
+
+  # gps devices
+  /dev/pps[0-9]* rw,
+  /dev/ptp[0-9]* rw,
+
+  # For use with clocks that report via shared memory (e.g. gpsd),
+  # you may need to give ntpd access to all of shared memory, though
+  # this can be considered dangerous. See https://launchpad.net/bugs/722815
+  # for details. To enable, add this to local/usr.sbin.chronyd:
+  #     capability ipc_owner,
+
+  # Site-specific additions and overrides. See local/README for details.
+  #include <local/usr.sbin.chronyd>
+}

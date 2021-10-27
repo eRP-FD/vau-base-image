@@ -1,0 +1,2 @@
+-a always,exit -F arch=b64 -S mount -k mounts
+-a always,exit -F arch=b32 -S mount -k mounts

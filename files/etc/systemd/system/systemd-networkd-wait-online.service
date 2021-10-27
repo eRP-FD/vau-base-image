@@ -1,0 +1,14 @@
+[Unit]
+DefaultDependencies=no
+Conflicts=shutdown.target
+Requires=systemd-networkd.service
+After=systemd-networkd.service
+Before=network-online.target
+JobTimeoutSec=infinity
+
+[Service]
+Type=oneshot
+TimeoutSec=infinity
+#https://www.freedesktop.org/software/systemd/man/systemd-networkd-wait-online.service.html
+ExecStart=/lib/systemd/systemd-networkd-wait-online --interface=enp4s0f0 --interface=enp6s0f1 --any --timeout=0
+RemainAfterExit=yes
