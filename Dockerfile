@@ -1,5 +1,3 @@
-FROM de.icr.io/erp_dev/vau-security-libraries-image:v-0.15.0 AS graphene
-
 FROM de.icr.io/erp_dev/ubuntu-focal:20210713 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
@@ -38,13 +36,14 @@ RUN apt-key add /tmp/apt-key/*.gpg \
     && echo 'deb https://download.sysdig.com/stable/deb stable-$(ARCH)/' > /etc/apt/sources.list.d/draios.list \
     && echo 'deb [arch=amd64] https://apt.releases.hashicorp.com focal main' >  /etc/apt/sources.list.d/hashicorp.list \
     && echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu focal main' >  /etc/apt/sources.list.d/intel.list \
+    && echo 'deb [arch=amd64] https://packages.gramineproject.io/ stable main' > /etc/apt/sources.list.d/gramine.list \
     && apt-get update
 
 COPY files/gpg/ /tmp/gpg/
 
 # Linux headers required for sysdig sysdigcloud-probe.ko
 # python3-lib2to3, python3-distutils fix errors in syslog
-# python3-protobuf, python3-toml, libprotobuf-c-dev and binutils required for graphene
+# libprotobuf-c-dev  - required by gramine
 RUN gpg --import /tmp/gpg/*.gpg && \
     wget -q https://kernel.ubuntu.com/~kernel-ppa/mainline/v${BASE_KERNEL_VERSION}/amd64/linux-headers-${KERNEL_RELEASE_VERSION_ALL}_all.deb  && \
     wget -q https://kernel.ubuntu.com/~kernel-ppa/mainline/v${BASE_KERNEL_VERSION}/amd64/linux-headers-${KERNEL_RELEASE_VERSION_GENERIC}_amd64.deb && \
@@ -59,14 +58,11 @@ RUN gpg --import /tmp/gpg/*.gpg && \
     draios-agent \
     python3-lib2to3 \
     python3-distutils \
-    python3-protobuf \
     libprotobuf-c-dev \
-    binutils \
-    python3-toml \
+    gramine \
     logdna-agent \
     haproxy \
     vault \
-    #&& dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | xargs dpkg -r \
     && rm -f linux-*.deb
 
 RUN ls -al /usr/src/
@@ -91,7 +87,7 @@ COPY files/etc/systemd/system/bond-iface-mac-address.service /etc/systemd/system
 # LogDNA agent
 COPY files/etc/systemd/system/logdna-agent.service /etc/systemd/system/logdna-agent.service
 
-# Configure bond network 
+# Configure bond network
 COPY files/etc/systemd/network/10-bond1.netdev /etc/systemd/network/10-bond1.netdev
 COPY files/etc/systemd/network/10-bond1.network /etc/systemd/network/10-bond1.network
 COPY files/etc/systemd/network/20-enp4s0.network /etc/systemd/network/20-enp4s0.network
@@ -162,7 +158,7 @@ RUN sed -i 's/^max_log_file_action.*/max_log_file_action = keep_logs/; s/^space_
 RUN echo "admin_space_left_action = halt" >> /etc/audit/auditd.conf
 
 # Monitor privileged files
-RUN find / -xdev \( -perm -4000 -o -perm -2000 \) -type f | awk '{print "-a always,exit -F path=" $1 " -F perm=x -F auid!=4294967295 -k privileged" }' >> /etc/audit/rules.d/50-privileged.rules 
+RUN find / -xdev \( -perm -4000 -o -perm -2000 \) -type f | awk '{print "-a always,exit -F path=" $1 " -F perm=x -F auid!=4294967295 -k privileged" }' >> /etc/audit/rules.d/50-privileged.rules
 
 # Add auditd rules
 COPY files/etc/auditd/rules.d/ /etc/audit/rules.d/
@@ -202,13 +198,8 @@ RUN echo > /etc/issue.net && \
 
 # Hardening end
 
-# Graphene installation
-COPY --from=graphene /graphene-0.15.0.deb /tmp/graphene.deb
-RUN dpkg -i /tmp/graphene.deb
-
 # Precompile python caches for aide
-RUN python3 -m compileall /usr/local/graphenelibos/
-
+RUN python3 -m compileall /usr/lib/python3/dist-packages/graminelibos/
 
 WORKDIR /sgx
 # Install packages, respecting their dependencies
@@ -257,4 +248,3 @@ RUN chmod 755 sgx_linux_x64_sdk_2.13.100.4.bin && \
 RUN systemctl mask apt-daily.timer && \
     systemctl mask apt-daily-upgrade.timer && \
     rm /var/log/dpkg.log
-
