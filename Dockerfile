@@ -8,7 +8,6 @@ ENV KERNEL_RELEASE_VERSION_ALL=5.11.16-051116_5.11.16-051116.202104211235
 ENV KERNEL_RELEASE_VERSION_GENERIC=5.11.16-051116-generic_5.11.16-051116.202104211235
 
 # Hardening start
-
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
   systemd-sysv \

@@ -9,10 +9,8 @@
 -A INPUT -s 127.0.0.0/8 -j DROP
 -A INPUT -m conntrack --ctstate INVALID -j DROP
 -A INPUT -p tcp -m tcp --dport 9085 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
--A INPUT -p tcp -m tcp --dport 9086 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
--A INPUT -p tcp -m tcp --dport 9087 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
--A INPUT -p tcp -m tcp --dport 9088 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 9191 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 9999 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 -A OUTPUT -o lo -j ACCEPT
 -A OUTPUT -p tcp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
