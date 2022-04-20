@@ -20,10 +20,11 @@ pipeline {
             when {
                 anyOf {
                     branch 'master'
+                    branch 'release/*'
                 }
             }
             steps {
-                gradleCreateRelease()
+                gradleCreateVersionRelease()
             }
         }
 
@@ -32,6 +33,7 @@ pipeline {
                 not {
                     anyOf {
                         branch 'master'
+                        branch 'release/*'
                     }
                 }
             }
@@ -44,6 +46,7 @@ pipeline {
             when {
                 anyOf {
                     branch 'master'
+                    branch 'release/*'
                 }
             }
             steps {
@@ -55,6 +58,7 @@ pipeline {
             when {
                 anyOf {
                     branch 'master'
+                    branch 'release/*'
                 }
             }
             steps {

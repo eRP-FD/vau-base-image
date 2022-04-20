@@ -15,6 +15,7 @@
 
   /etc/hosts r,
   /run/haproxy-master.sock* mrix,
+  /run/systemd/notify w,
   /sys/kernel/mm/transparent_hugepage/enabled r,
   /usr/bin/cat mrix,
   /usr/bin/timeout mrix,
