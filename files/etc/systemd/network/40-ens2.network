@@ -1,0 +1,6 @@
+[Match]
+Name=ens2f0
+
+[Network]
+Bond=bond1
+PrimarySlave=true

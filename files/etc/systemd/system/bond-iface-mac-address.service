@@ -1,10 +1,10 @@
 [Unit]
-Description=Set MAC address from enp4s0f0 on the bond interface
+Description=Set MAC address from enp4s0f0 or ens2f0 on the bond interface
 Before=systemd-networkd.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c 'sed -i "/^\[NetDev\]/a MACAddress=$(cat /sys/class/net/enp4s0f0/address)" /etc/systemd/network/10-bond1.netdev'
+ExecStart=/bin/bash -c 'sed -i "/^\[NetDev\]/a MACAddress=$(cat /sys/class/net/enp4s0f0/address || cat /sys/class/net/ens2f0/address)" /etc/systemd/network/10-bond1.netdev'
 
 [Install]
 WantedBy=multi-user.target

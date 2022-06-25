@@ -1,0 +1,5 @@
+[Match]
+Name=ens3f1
+
+[Network]
+Bond=bond1

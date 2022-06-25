@@ -81,6 +81,8 @@ COPY files/etc/systemd/network/10-bond1.netdev /etc/systemd/network/10-bond1.net
 COPY files/etc/systemd/network/10-bond1.network /etc/systemd/network/10-bond1.network
 COPY files/etc/systemd/network/20-enp4s0.network /etc/systemd/network/20-enp4s0.network
 COPY files/etc/systemd/network/30-enp6s1.network /etc/systemd/network/30-enp6s1.network
+COPY files/etc/systemd/network/40-ens2.network /etc/systemd/network/40-ens2.network
+COPY files/etc/systemd/network/50-ens3.network /etc/systemd/network/50-ens3.network
 
 # Add configuration files
 COPY files/etc/chrony/chrony.conf /etc/chrony/
