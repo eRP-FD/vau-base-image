@@ -16,6 +16,7 @@ RUN apt-get update && \
   aide \
   chrony \
   iptables iptables-persistent \
+  tzdata \
   rsyslog \
   gnupg \
   curl \
