@@ -4,7 +4,7 @@
 This image is to be used as a hardened base for the VAU docker images and contains the hardening steps.
 
 ## Dependencies
-* Have access to de.icr.io/erp_dev/ubuntu-focal:20210416, or pull the ubuntu focal image and retag it to match the name
+* Have access to de.icr.io/erp_dev/ubuntu-focal:20220531, or pull the ubuntu focal image and retag it to match the name
 of the base image in the Dockerfile
 
 ## Dockerfile

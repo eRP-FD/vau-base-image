@@ -66,4 +66,15 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            script {
+                if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main' || env.BRANCH_NAME.startsWith("release/")) {
+                    build wait: false, job: '/eRp/Integration/eRp_Scan_Image_Vulnerabilities',
+                        parameters: [[$class: 'StringParameterValue', name: 'service', value: 'vau-base-image'],
+                                     [$class: 'StringParameterValue', name: 'version', value: currentBuild.displayName]]
+                }
+            }
+        }
+    }
 }
