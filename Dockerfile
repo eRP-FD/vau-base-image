@@ -1,9 +1,9 @@
-FROM de.icr.io/erp_dev/ubuntu-focal:20220531 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-focal:20220801 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
 # Kernel headers are required for sysdig agent installation
-ENV KERNEL_VERSION=5.15.0-41-generic
+ENV KERNEL_VERSION=5.15.0-43-generic
 
 # Hardening start
 RUN apt-get update && \
@@ -34,7 +34,7 @@ RUN apt-key add /tmp/apt-key/*.gpg \
     && echo 'deb https://download.sysdig.com/stable/deb stable-$(ARCH)/' > /etc/apt/sources.list.d/draios.list \
     && echo 'deb [arch=amd64] https://apt.releases.hashicorp.com focal main' >  /etc/apt/sources.list.d/hashicorp.list \
     && echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu focal main' >  /etc/apt/sources.list.d/intel.list \
-    && echo 'deb [arch=amd64] https://packages.gramineproject.io/ 1.2 main' > /etc/apt/sources.list.d/gramine.list \
+    && echo 'deb [arch=amd64] https://packages.gramineproject.io/ 1.0 main' > /etc/apt/sources.list.d/gramine.list \
     && apt-get update
 
 

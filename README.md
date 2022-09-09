@@ -4,7 +4,7 @@
 Dieses Image ist als gehärtete Basis für die VAU-Docker-Images zu verwenden und enthält die Härtungsschritte.
 
 ## Dependencies
-* Haben Sie Zugang zu de.icr.io/erp_dev/ubuntu-focal:20220531, oder laden Sie das ubuntu-focal-Image und benenne es passend zum base image in der Docker-Datei.
+* Haben Sie Zugang zu de.icr.io/erp_dev/ubuntu-focal:20220801, oder laden Sie das ubuntu-focal-Image und benenne es passend zum base image in der Docker-Datei.
 
 ## Dockerfile
 Das Docker-Image wird:
