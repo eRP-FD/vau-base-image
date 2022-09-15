@@ -3,7 +3,7 @@ FROM de.icr.io/erp_dev/ubuntu-focal:20220801 as base_hardened
 SHELL ["/bin/bash", "-c"]
 
 # Kernel headers are required for sysdig agent installation
-ENV KERNEL_VERSION=5.15.0-43-generic
+ENV KERNEL_VERSION=5.13.0-52-generic
 
 # Hardening start
 RUN apt-get update && \
