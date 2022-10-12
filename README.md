@@ -78,3 +78,4 @@ Zur Ausführung verwenden Sie den installierten und konfigurierten CIS Assessor 
 ```
 
 Der Bericht sollte *no failed tests* anzeigen.
+ 

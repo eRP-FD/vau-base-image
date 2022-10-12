@@ -1,4 +1,4 @@
-FROM de.icr.io/erp_dev/ubuntu-focal:20220801 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-focal:20220826 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
