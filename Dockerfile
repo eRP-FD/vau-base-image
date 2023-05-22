@@ -1,4 +1,11 @@
-FROM de.icr.io/erp_dev/ubuntu-focal:20230308 as base_hardened
+#
+# (C) Copyright IBM Deutschland GmbH 2021, 2023
+# (C) Copyright IBM Corp. 2021, 2023
+#
+# non-exclusively licensed to gematik GmbH
+#
+
+FROM de.icr.io/erp_dev/ubuntu-focal:20230412 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
@@ -28,9 +35,8 @@ RUN apt-get update && \
   && rm -rf /var/lib/apt/lists/*
 
 # Trust the GPGs key, configure the apt repository, and update the package list
-COPY files/apt-key/ /tmp/apt-key/
-RUN apt-key add /tmp/apt-key/*.gpg \
-    && echo 'deb https://repo.logdna.com stable main' > /etc/apt/sources.list.d/logdna.list \
+COPY files/apt-key/ /etc/apt/trusted.gpg.d/
+RUN echo 'deb https://repo.logdna.com stable main' > /etc/apt/sources.list.d/logdna.list \
     && echo 'deb https://download.sysdig.com/stable/deb stable-$(ARCH)/' > /etc/apt/sources.list.d/draios.list \
     && echo 'deb [arch=amd64] https://apt.releases.hashicorp.com focal main' >  /etc/apt/sources.list.d/hashicorp.list \
     && echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu focal main' >  /etc/apt/sources.list.d/intel.list \
