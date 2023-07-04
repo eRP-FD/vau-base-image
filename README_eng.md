@@ -4,7 +4,7 @@
 This image is to be used as a hardened base for the VAU docker images and contains the hardening steps.
 
 ## Dependencies
-* Have access to de.icr.io/erp_dev/ubuntu-focal:20230412, or pull the ubuntu focal image and retag it to match the name
+* Have access to de.icr.io/erp_dev/ubuntu-jammy:20230522, or pull the ubuntu jammy image and retag it to match the name
 of the base image in the Dockerfile
 
 ## Dockerfile
@@ -59,11 +59,11 @@ the client is used to connect to the Hashicorp Vault server after boot, to retri
 The image is build and pushed into the registry by Jenkins
 
 ### Manual build
-The image can be build locally, using docker build, as long as the dependecies above are met
+The image can be build locally, using docker build, as long as the dependencies above are met
 
 ## Howto: changes, updates
 
-The image is pinned on a Ubuntu Focal version and needs to be updated every time a new updated tag is released.
+The image is pinned on a Ubuntu Jammy version and needs to be updated every time a new updated tag is released.
 The Dockerfile contains information on which CIS Benchmark sections impose which changes.
 
 ## Howto: benchmark evaluation
