@@ -1,0 +1,8 @@
+[Unit]
+Description=Log CPU frequency (per core) & package throttle count
+
+[Service]
+User=erp-processing-context
+Group=erp-processing-context
+Type=simple
+ExecStart=/usr/local/bin/cpu-stats.sh

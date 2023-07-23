@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for logging CPU frequency (per core) & package throttle count
+
+[Timer]
+OnCalendar=*:00,05,10,15,20,25,30,35,40,45,50,55
+Unit=cpu-stats.service
+
+[Install]
+WantedBy=timers.target

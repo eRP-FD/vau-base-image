@@ -1,4 +1,4 @@
-FROM de.icr.io/erp_dev/ubuntu-jammy:20230522 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-jammy:20230624 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
@@ -58,9 +58,14 @@ RUN ls -al /usr/src/
 
 RUN mkdir /var/config/
 
+# Add script files
+COPY files/scripts/cpu-stats.sh /usr/local/bin/
+
 # Add systemd files
 COPY files/etc/systemd/system/aide-fim.timer /etc/systemd/system/
 COPY files/etc/systemd/system/aide-fim.service /etc/systemd/system/
+COPY files/etc/systemd/system/cpu-stats.timer /etc/systemd/system/
+COPY files/etc/systemd/system/cpu-stats.service /etc/systemd/system/
 
 # Add apparmor files
 COPY files/etc/apparmor.d/usr.bin.logdna-agent /etc/apparmor.d/usr.bin.logdna-agent
@@ -89,7 +94,7 @@ COPY files/etc/chrony/chrony.conf /etc/chrony/
 COPY files/etc/aide/aide.conf /etc/aide/aide.conf
 RUN mkdir -p /var/log/aide/
 
-RUN systemctl enable apparmor auditd aide-fim.timer chrony rsyslog logdna-agent dragent haproxy systemd-networkd bond-iface-mac-address && \
+RUN systemctl enable apparmor auditd aide-fim.timer chrony cpu-stats.timer rsyslog logdna-agent dragent haproxy systemd-networkd bond-iface-mac-address && \
   systemctl mask systemd-timesyncd
 
 # CIS Hardening section 1.1
