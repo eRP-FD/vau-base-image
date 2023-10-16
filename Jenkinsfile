@@ -50,7 +50,7 @@ pipeline {
                 }
             }
             steps {
-                buildAndPushContainer()
+                buildAndPushContainer(DOCKER_OPTS: '--no-cache')
             }
         }
 
