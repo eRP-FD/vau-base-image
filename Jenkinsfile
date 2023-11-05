@@ -28,6 +28,14 @@ pipeline {
             }
         }
 
+        stage('SBOM Generation') {
+            steps {
+                script {
+                    sbomSyft()
+                }
+            }
+        }
+
         stage('Check Container Build') {
             when {
                 not {
