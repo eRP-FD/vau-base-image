@@ -1,4 +1,4 @@
-FROM de.icr.io/erp_dev/ubuntu-jammy:20231004 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-jammy:20231211.1 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
@@ -44,7 +44,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     linux-headers-${KERNEL_VERSION} \
     linux-modules-${KERNEL_VERSION} \
     linux-image-unsigned-${KERNEL_VERSION} \
-    draios-agent \
+    draios-agent=12.17.1 \
     python3-lib2to3 \
     python3-distutils \
     libprotobuf-c-dev \
