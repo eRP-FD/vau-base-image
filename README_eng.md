@@ -15,7 +15,7 @@ The docker image will:
 
 ## Software
 
-### 1. [Gramine](https://grapheneproject.io)
+### 1. [Gramine](https://gramineproject.io/)
 Gramine is installed form a debian package, which is provided from the maintainers:
 https://github.com/gramineproject/gramine/releases
 ### 2. [Auditd](https://man7.org/linux/man-pages/man8/auditd.8.html)

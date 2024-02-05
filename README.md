@@ -14,7 +14,7 @@ Das Docker-Image wird:
 
 ## Software
 
-### 1. [Gramine](https://grapheneproject.io)
+### 1. [Gramine](https://gramineproject.io/)
 Gramine wird in Form eines Debian-Pakets installiert, das von den Maintainern bereitgestellt wird:
 https://github.com/gramineproject/gramine/releases
 ### 2. [Auditd](https://man7.org/linux/man-pages/man8/auditd.8.html)
