@@ -1,6 +1,0 @@
-[Match]
-Name=enp4s0f0
-
-[Network]
-Bond=bond1
-PrimarySlave=true

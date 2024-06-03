@@ -60,6 +60,7 @@ RUN mkdir /var/config/
 
 # Add script files
 COPY files/scripts/cpu-stats.sh /usr/local/bin/
+COPY files/scripts/create-nic-config.sh /usr/local/bin/
 
 # Add systemd files
 COPY files/etc/systemd/system/aide-fim.timer /etc/systemd/system/
@@ -75,8 +76,8 @@ COPY files/etc/apparmor.d/usr.sbin.chronyd /etc/apparmor.d/usr.sbin.chronyd
 # Only wait for the bond1 interface to be online
 COPY files/etc/systemd/system/systemd-networkd-wait-online.service /etc/systemd/system/systemd-networkd-wait-online.service
 
-# Set bond MAC adress
-COPY files/etc/systemd/system/bond-iface-mac-address.service /etc/systemd/system/bond-iface-mac-address.service
+# service that will create NIC config files for different hardware models and generations
+COPY files/etc/systemd/system/create-nic-config.service /etc/systemd/system/create-nic-config.service
 
 # LogDNA agent
 COPY files/etc/systemd/system/logdna-agent.service /etc/systemd/system/logdna-agent.service
@@ -84,17 +85,13 @@ COPY files/etc/systemd/system/logdna-agent.service /etc/systemd/system/logdna-ag
 # Configure bond network
 COPY files/etc/systemd/network/10-bond1.netdev /etc/systemd/network/10-bond1.netdev
 COPY files/etc/systemd/network/10-bond1.network /etc/systemd/network/10-bond1.network
-COPY files/etc/systemd/network/20-enp4s0.network /etc/systemd/network/20-enp4s0.network
-COPY files/etc/systemd/network/30-enp6s1.network /etc/systemd/network/30-enp6s1.network
-COPY files/etc/systemd/network/40-ens2.network /etc/systemd/network/40-ens2.network
-COPY files/etc/systemd/network/50-ens3.network /etc/systemd/network/50-ens3.network
 
 # Add configuration files
 COPY files/etc/chrony/chrony.conf /etc/chrony/
 COPY files/etc/aide/aide.conf /etc/aide/aide.conf
 RUN mkdir -p /var/log/aide/
 
-RUN systemctl enable apparmor auditd aide-fim.timer chrony cpu-stats.timer rsyslog logdna-agent dragent haproxy systemd-networkd bond-iface-mac-address && \
+RUN systemctl enable apparmor auditd aide-fim.timer chrony cpu-stats.timer rsyslog logdna-agent dragent haproxy systemd-networkd create-nic-config && \
   systemctl mask systemd-timesyncd
 
 # CIS Hardening section 1.1
