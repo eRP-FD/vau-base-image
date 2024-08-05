@@ -44,7 +44,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     linux-headers-${KERNEL_VERSION} \
     linux-modules-${KERNEL_VERSION} \
     linux-image-unsigned-${KERNEL_VERSION} \
-    draios-agent=12.17.1 \
+    draios-agent \
     python3-lib2to3 \
     python3-distutils \
     libprotobuf-c-dev \
@@ -74,7 +74,7 @@ COPY files/etc/apparmor.d/usr.sbin.haproxy /etc/apparmor.d/usr.sbin.haproxy
 COPY files/etc/apparmor.d/usr.sbin.chronyd /etc/apparmor.d/usr.sbin.chronyd
 
 # Only wait for the bond1 interface to be online
-COPY files/etc/systemd/system/systemd-networkd-wait-online.service /etc/systemd/system/systemd-networkd-wait-online.service
+#COPY files/etc/systemd/system/systemd-networkd-wait-online.service /etc/systemd/system/systemd-networkd-wait-online.service
 
 # service that will create NIC config files for different hardware models and generations
 COPY files/etc/systemd/system/create-nic-config.service /etc/systemd/system/create-nic-config.service
