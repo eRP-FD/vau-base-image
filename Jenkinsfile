@@ -8,6 +8,10 @@ pipeline {
         skipDefaultCheckout()
     }
 
+    tools {
+        jdk 'jdk_17'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -25,6 +29,23 @@ pipeline {
             }
             steps {
                 gradleCreateVersionRelease()
+            }
+        }
+
+        stage('SBOM and Sonar') {
+            steps {
+                 withVault(
+                    [[path: "secret/eRp/dependencytrack", secretValues: [[vaultKey: 'dependencytrack_apikey', envVar: 'DEPENDENCYTRACK_APIKEY']]],
+                        [path: "secret/eRp/dependencytrack", secretValues: [[vaultKey: 'frontend_url', envVar: 'DEPENDENCYTRACK_FRONTEND_URL']]],
+                        [path: "secret/eRp/dependencytrack", secretValues: [[vaultKey: 'serverhostname', envVar: 'DEPENDENCYTRACK_SERVER_HOSTNAME']]],
+                        [path: "secret/eRp/sonarqube", secretValues: [[vaultKey: 'sonarqubetoken', envVar: 'SONARQUBE_TOKEN']]],
+                        [path: "secret/eRp/sonarqube", secretValues: [[vaultKey: 'sonarqubeurl', envVar: 'SONARQUBE_URL']]]
+                        ]
+                    
+                 ) {
+                    staticAnalysis()
+                    dependencyTrack()
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-FROM de.icr.io/erp_dev/ubuntu-jammy:20240405 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-jammy:20240911.1 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
@@ -91,7 +91,7 @@ COPY files/etc/chrony/chrony.conf /etc/chrony/
 COPY files/etc/aide/aide.conf /etc/aide/aide.conf
 RUN mkdir -p /var/log/aide/
 
-RUN systemctl enable apparmor auditd aide-fim.timer chrony cpu-stats.timer rsyslog logdna-agent dragent haproxy systemd-networkd create-nic-config && \
+RUN systemctl enable apparmor auditd aide-fim.timer chrony cpu-stats.timer rsyslog dragent haproxy systemd-networkd create-nic-config && \
   systemctl mask systemd-timesyncd
 
 # CIS Hardening section 1.1
@@ -207,8 +207,9 @@ RUN dpkg --force-depends -P binutils binutils-common binutils-x86-64-linux-gnu b
 RUN useradd -d / -s /usr/sbin/nologin -U -r systemd-timesync
 RUN useradd -d / -s /usr/sbin/nologin -U -r systemd-coredump
 
-# Increase wait time for rsyslog service (mitigation for issue ERP-16199)
+# Increase wait time for rsyslog service (mitigation for issue ERP-16199) and reverse start order with haproxy
 RUN sed -i 's/^Restart=on-failure/Restart=on-failure\nTimeoutStartSec=300/' /lib/systemd/system/rsyslog.service
+RUN sed -i 's/^After=network-online.target.*/Before=rsyslog.service\nAfter=network-online.target/' /lib/systemd/system/haproxy.service
 
 # Disable XCC interface added by udev
 RUN rm /usr/lib/udev/rules.d/73-special-net-names.rules
