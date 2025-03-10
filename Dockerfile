@@ -58,6 +58,18 @@ RUN ls -al /usr/src/
 
 RUN mkdir /var/config/
 
+# install Cloud Logs agent and libyaml as dependency
+# go to https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-release-notes-agent for latest agent release
+RUN curl -sSO https://logs-router-agent-install-packages.s3.us.cloud-object-storage.appdomain.cloud/logs-router-agent-1.4.2.deb
+RUN curl -sSO https://logs-router-agent-install-packages.s3.us.cloud-object-storage.appdomain.cloud/logs-router-agent-1.4.2.deb.sha256
+RUN sha256sum -c logs-router-agent-1.4.2.deb.sha256
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends libyaml-0-2
+RUN dpkg -i logs-router-agent-1.4.2.deb
+RUN rm logs-router-agent*
+RUN rm /etc/fluent-bit/fluent-bit.conf
+RUN ln -s /var/config/fluent-bit.conf /etc/fluent-bit/fluent-bit.conf
+RUN ln -s /var/config/fluent-bit-secrets /etc/default/fluent-bit
+
 # Add script files
 COPY files/scripts/cpu-stats.sh /usr/local/bin/
 COPY files/scripts/create-nic-config.sh /usr/local/bin/
