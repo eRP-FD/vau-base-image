@@ -29,7 +29,7 @@ RUN apt-get update && \
 
 # Trust the GPGs key, configure the apt repository, and update the package list
 COPY files/apt-key/ /usr/share/keyrings/
-RUN    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/gramine-keyring.gpg] https://packages.gramineproject.io/ 1.5 main" > /etc/apt/sources.list.d/gramine.list \
+RUN    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/gramine-keyring.gpg] https://packages.gramineproject.io/ jammy main" > /etc/apt/sources.list.d/gramine.list \
     && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/intel-sgx-deb.asc] https://download.01.org/intel-sgx/sgx_repo/ubuntu jammy main" > /etc/apt/sources.list.d/intel-sgx.list \
     && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/logdna.gpg] https://repo.logdna.com stable main" > /etc/apt/sources.list.d/logdna.list \
     && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/draios.gpg] https://download.sysdig.com/stable/deb stable-\$(ARCH)/" > /etc/apt/sources.list.d/draios.list \
@@ -48,7 +48,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     python3-lib2to3 \
     python3-distutils \
     libprotobuf-c-dev \
-    gramine \
+    gramine=1.8 \
     logdna-agent \
     haproxy \
     vault \
