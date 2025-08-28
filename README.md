@@ -34,8 +34,8 @@ Konfiguration kann [here](files/etc/aide/aide.conf) gefunden werden.
 ### 5. [chrony](https://chrony.tuxfamily.org)
 chrony ist eine vielseitige Implementierung des Network Time Protocol (NTP). Es kann die Systemuhr mit NTP-Servern synchronisieren.
 Da ein und dasselbe Image in mehreren Umgebungen verwendet wird, sind in der Konfiguration sowohl Test- als auch Produktionszeitserver aufgeführt.
-### 6. [Logdna](https://www.logdna.com)
-LogDNA ist ein zentralisiertes Log-Management-Tool, mit dem Teams in jeder Phase des Softwareentwicklungszyklus kontinuierliches Feedback erhalten.
+### 6. [IBM Cloud Logs](https://www.ibm.com/products/cloud-logs)
+IBM Cloud Logs ist ein zentralisiertes Log-Management-Tool, mit dem Teams in jeder Phase des Softwareentwicklungszyklus kontinuierliches Feedback erhalten.
 Wird zum Sammeln und Prüfen von Protokollen verwendet.
 ### 7. [Sysdig](https://sysdig.com) (draios-agent)
 Sysdig ist eine Open-Source-Lösung zur Erforschung auf Systemebene. Es erfasst den Systemzustand und die Aktivität einer laufenden Linux-Instanz und speichert, filtert und analysiert diesen.
