@@ -43,7 +43,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     linux-headers-${KERNEL_VERSION} \
     linux-modules-${KERNEL_VERSION} \
     linux-image-unsigned-${KERNEL_VERSION} \
-    draios-agent \
+    draios-agent=13.9.1 \
+    draios-agent-kmodule=13.9.1 \
+    draios-agent-slim=13.9.1 \
     python3-lib2to3 \
     python3-distutils \
     libprotobuf-c-dev \
