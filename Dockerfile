@@ -1,4 +1,4 @@
-FROM de.icr.io/erp_dev/ubuntu-jammy:20250714 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-jammy:20251001 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
@@ -60,15 +60,17 @@ RUN mkdir /var/config/
 
 # install Cloud Logs agent and libyaml as dependency
 # go to https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-release-notes-agent for latest agent release
-RUN curl -sSO https://logs-router-agent-install-packages.s3.us.cloud-object-storage.appdomain.cloud/logs-router-agent-1.4.2.deb
-RUN curl -sSO https://logs-router-agent-install-packages.s3.us.cloud-object-storage.appdomain.cloud/logs-router-agent-1.4.2.deb.sha256
-RUN sha256sum -c logs-router-agent-1.4.2.deb.sha256
+RUN curl -sSO https://logs-router-agent-install-packages.s3.us.cloud-object-storage.appdomain.cloud/logs-router-agent-1.6.2.deb
+RUN printf "a582780ca92677028e38ed0dc01b1db9127416c296398b681e71cf62eb57459d  logs-router-agent-1.6.2.deb\n" > logs-router-agent-1.6.2.deb.sha256
+RUN sha256sum -c logs-router-agent-1.6.2.deb.sha256
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends libyaml-0-2
-RUN dpkg -i logs-router-agent-1.4.2.deb
+RUN dpkg -i logs-router-agent-1.6.2.deb
 RUN rm logs-router-agent*
 RUN rm /etc/fluent-bit/fluent-bit.conf
 RUN ln -s /var/config/fluent-bit.conf /etc/fluent-bit/fluent-bit.conf
-RUN ln -s /var/config/fluent-bit-secrets /etc/default/fluent-bit
+RUN ln -s /var/config/fluent-bit-secrets /etc/fluent-bit/env.conf
+### remove start condition in version 1.6.2 (following command line is expected to will always have exit 0, even if the line is missing)
+RUN sed -i '/^ConditionPathExists/d' /lib/systemd/system/fluent-bit.service
 
 # Add script files
 COPY files/scripts/cpu-stats.sh /usr/local/bin/
