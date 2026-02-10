@@ -44,19 +44,10 @@ pipeline {
                     
                  ) {
                     staticAnalysis()
-                    dependencyTrack()
+                    dependencyTrack(gradleAnalysis: "false")
                 }
             }
         }
-
-        stage('SBOM Generation') {
-            steps {
-                script {
-                    sbomSyft()
-                }
-            }
-        }
-
         stage('Check Container Build') {
             when {
                 not {

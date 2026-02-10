@@ -1,9 +1,9 @@
-FROM de.icr.io/erp_dev/ubuntu-jammy:20251001 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-jammy:20260109 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
 # Kernel headers are required for sysdig agent installation
-ENV KERNEL_VERSION=5.19.0-41-generic
+ENV KERNEL_VERSION=6.8.0-90-generic
 
 # Hardening start
 RUN apt-get update && \
@@ -43,9 +43,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     linux-headers-${KERNEL_VERSION} \
     linux-modules-${KERNEL_VERSION} \
     linux-image-unsigned-${KERNEL_VERSION} \
-    draios-agent=13.9.1 \
-    draios-agent-kmodule=13.9.1 \
-    draios-agent-slim=13.9.1 \
+    draios-agent \
     python3-lib2to3 \
     python3-distutils \
     libprotobuf-c-dev \
