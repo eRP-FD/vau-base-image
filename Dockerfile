@@ -1,12 +1,13 @@
-FROM de.icr.io/erp_dev/ubuntu-jammy:20260109 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-jammy:20260509 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
 # Kernel headers are required for sysdig agent installation
-ENV KERNEL_VERSION=6.8.0-90-generic
+ENV KERNEL_VERSION=6.8.0-111-generic
 
 # Hardening start
 RUN apt-get update && \
+  apt-get upgrade -y && \
   DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
   systemd-sysv \
   dbus \
