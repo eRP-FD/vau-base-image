@@ -3,7 +3,7 @@ FROM de.icr.io/erp_dev/ubuntu-jammy:20260509 as base_hardened
 SHELL ["/bin/bash", "-c"]
 
 # Kernel headers are required for sysdig agent installation
-ENV KERNEL_VERSION=6.8.0-111-generic
+ENV KERNEL_VERSION=6.8.0-117-generic
 
 # Hardening start
 RUN apt-get update && \
