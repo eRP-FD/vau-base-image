@@ -4,7 +4,7 @@
 This image is to be used as a hardened base for the VAU docker images and contains the hardening steps.
 
 ## Dependencies
-* Have access to de.icr.io/erp_dev/ubuntu-jammy:*, or pull the ubuntu jammy image and retag it to match the name
+* Have access to de.icr.io/erp_dev/ubuntu-noble:*, or pull the ubuntu noble image and retag it to match the name
 of the base image in the Dockerfile
 
 ## Dockerfile
@@ -63,7 +63,7 @@ The image can be build locally, using docker build, as long as the dependencies 
 
 ## Howto: changes, updates
 
-The image is pinned on a Ubuntu Jammy version and needs to be updated every time a new updated tag is released.
+The image is pinned on a Ubuntu Noble version and needs to be updated every time a new updated tag is released.
 The Dockerfile contains information on which CIS Benchmark sections impose which changes.
 
 ## Howto: benchmark evaluation

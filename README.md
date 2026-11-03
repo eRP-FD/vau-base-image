@@ -4,7 +4,7 @@
 Dieses Image ist als gehärtete Basis für die VAU-Docker-Images zu verwenden und enthält die Härtungsschritte.
 
 ## Dependencies
-* Haben Sie Zugang zu de.icr.io/erp_dev/ubuntu-jammy:*, oder laden Sie das ubuntu-jammy-Image und benenne es passend zum base image in der Docker-Datei.
+* Haben Sie Zugang zu de.icr.io/erp_dev/ubuntu-noble:*, oder laden Sie das ubuntu-noble-Image und benenne es passend zum base image in der Docker-Datei.
 
 ## Dockerfile
 Das Docker-Image wird:
@@ -60,7 +60,7 @@ Das Image kann lokal mit docker build erstellt werden, sofern die oben genannten
 
 ## Howto: changes, updates
 
-Das Image ist an eine Ubuntu Jammy-Version geknüpft und muss jedes Mal aktualisiert werden, wenn ein neues aktualisiertes Tag veröffentlicht wird.
+Das Image ist an eine Ubuntu Noble-Version geknüpft und muss jedes Mal aktualisiert werden, wenn ein neues aktualisiertes Tag veröffentlicht wird.
 Das Dockerfile enthält Informationen darüber, welche CIS-Benchmark-Abschnitte welche Änderungen erforderlich machen.
 
 ## Howto: benchmark evaluation
