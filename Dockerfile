@@ -1,9 +1,9 @@
-FROM de.icr.io/erp_dev/ubuntu-noble:20261024.1 as base_hardened
+FROM de.icr.io/erp_dev/ubuntu-noble:20261110 as base_hardened
 
 SHELL ["/bin/bash", "-c"]
 
 # Kernel headers are required for sysdig agent installation
-ENV KERNEL_VERSION=6.8.0-136-generic
+ENV KERNEL_VERSION=6.8.0-149-generic
 
 # Hardening start
 RUN apt-get update && \
